@@ -21,7 +21,7 @@
 | D4. Sequence Diagram 1: Peserta menyelesaikan kuis | Azkiya | Sahfria |
 | D4. Sequence Diagram 2: Mentor menilai tugas | Sahfria | Azkiya |
 | D4. Sequence Diagram 3: Peserta mengklaim sertifikat | Azzam | Sahfria |
-| D6. Test Case (skenario klaim sertifikat) | Azzam (kerangka + 5 common), Sahfria (5 edge case) | Azkiya |
+| D6. Test Case (skenario klaim sertifikat) | Azzam (kerangka + 5 common and 5 edge case) | Azkiya |
 | D7. Fungsi `is_eligible_for_certificate` + unit test | Azzam | Sahfria |
 | README.md | Azzam | Azkiya, Sahfria |
 | ACTIVITY_LOG.md | Masing-masing mengisi entri sendiri | - |

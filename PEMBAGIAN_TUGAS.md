@@ -10,9 +10,6 @@
 | Abdullah Azzam Firdaus (ketua) | @username-azzam | Dokumen inti, kode, test, koordinasi |
 | Azkiya Raihana | @rockiny4n | Use case diagram + 1 sequence diagram |
 | Sahfria Elisabeth Yaleget | @username-Sahfria | 1 sequence diagram + bantu test case |
-======
-
-> Ganti `@username-...` dengan username GitHub asli sebelum dikumpulkan.
 
 ## Ringkasan Pembagian Deliverable
 

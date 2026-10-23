@@ -16,7 +16,7 @@
 | Deliverable | Penanggung jawab | Reviewer |
 |---|---|---|
 | D1. Topik & Masalah | Azzam (draft sudah ada, tinggal commit) | Azkiya |
-| D2. Modul | Azkiya (merapikan draft `D2.md` dari Azzam lalu commit) | Azzam |
+| D2. Modul | Azkiya  | Azzam |
 | D3. Use Case Diagram | Azkiya | Azzam |
 | D4. Sequence Diagram 1: Peserta menyelesaikan kuis | Azkiya | Sahfria |
 | D4. Sequence Diagram 2: Mentor menilai tugas | Sahfria | Azkiya |

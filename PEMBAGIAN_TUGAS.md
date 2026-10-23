@@ -8,8 +8,13 @@
 | Nama | GitHub | Peran utama |
 |---|---|---|
 | Abdullah Azzam Firdaus (ketua) | @username-azzam | Dokumen inti, kode, test, koordinasi |
+<<<<<<< HEAD
 | Azkiya Raihana | @username-azkiya | Use case diagram + 1 sequence diagram |
 | Sahfria Elisabeth Yaleget | @username-Sahfria | 1 sequence diagram + bantu test case |
+=======
+| Azkiya Raihana | @rockiny4n | Use case diagram + 1 sequence diagram |
+| Shafria Elisabeth Yaleget | @username-shafria | 1 sequence diagram + bantu test case |
+>>>>>>> b374840d0c98dc3a0ce1869f5758d478c13e39d4
 
 > Ganti `@username-...` dengan username GitHub asli sebelum dikumpulkan.
 

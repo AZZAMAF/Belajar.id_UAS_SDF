@@ -9,21 +9,31 @@ participant "Feedback & Progress" as FP
 database "Database" as DB
 
 U -> UI: Isi jawaban, klik "Kirim"
-UI -> SIM: submit_answers(user_id, answers)
+UI -> SIM: submit_answers(attempt_id, answers)
+SIM -> DB: get_attempt_tasks(attempt_id)
+DB --> SIM: user_id, sudah_dikirim, daftar task + kunci jawaban
 
-alt Ada jawaban kosong
+alt Attempt sudah pernah dikirim
+  SIM --> UI: error "sudah dikirim"
+  UI --> U: "Simulasi ini sudah diselesaikan"
+else Ada task belum dijawab
   SIM --> UI: error validasi
   UI --> U: "Semua task wajib diisi"
-else Semua terisi
-  SIM -> DB: get_answer_key(task_ids)
-  DB --> SIM: answer_key
-  SIM -> SIM: count_correct(answers, answer_key)
+else Semua task terjawab
+  SIM -> SIM: count_correct(answers, tasks)
   SIM -> SIM: evaluate_simulation(correct, total)
-  SIM -> FP: save_result(user_id, score, status)
+  SIM -> FP: save_result(user_id, attempt_id, score, status)
   FP -> DB: simpan hasil
-  DB --> FP: OK
-  FP --> SIM: feedback sesuai status
-  SIM --> UI: skor + status + feedback
-  UI --> U: Tampilkan hasil
+  alt Berhasil disimpan
+    DB --> FP: OK
+    FP --> SIM: feedback sesuai status
+    SIM --> UI: skor + status + feedback
+    UI --> U: Tampilkan hasil
+  else Gagal menyimpan
+    DB --> FP: error
+    FP --> SIM: error
+    SIM --> UI: error simpan
+    UI --> U: "Hasil belum tersimpan, coba lagi"
+  end
 end
 @enduml

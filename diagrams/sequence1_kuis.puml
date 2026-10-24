@@ -1,3 +1,4 @@
+
 @startuml
 title S2 - Mengerjakan Simulasi & Menerima Feedback
 
@@ -8,14 +9,17 @@ participant "Feedback & Progress" as FP
 database "Database" as DB
 
 U -> UI: Isi jawaban, klik "Kirim"
-UI -> SIM: submitAnswers(userId, answers)
+UI -> SIM: submit_answers(user_id, answers)
 
 alt Ada jawaban kosong
   SIM --> UI: error validasi
   UI --> U: "Semua task wajib diisi"
 else Semua terisi
+  SIM -> DB: get_answer_key(task_ids)
+  DB --> SIM: answer_key
+  SIM -> SIM: count_correct(answers, answer_key)
   SIM -> SIM: evaluate_simulation(correct, total)
-  SIM -> FP: saveResult(userId, score, status)
+  SIM -> FP: save_result(user_id, score, status)
   FP -> DB: simpan hasil
   DB --> FP: OK
   FP --> SIM: feedback sesuai status

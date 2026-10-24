@@ -1,0 +1,53 @@
+@startuml
+title S2 - Mengerjakan Simulasi Tugas & Menerima Feedback
+
+actor "Job Seeker" as U
+participant "UI" as UI
+participant "Simulation" as SIM
+participant "Feedback & Progress" as FP
+database "Database" as DB
+
+== Pilih skenario ==
+U -> UI: Buka halaman Simulasi
+UI -> SIM: getScenarios(jobId)
+SIM -> DB: query skenario
+DB --> SIM: daftar skenario
+SIM --> UI: daftar skenario
+UI --> U: Tampilkan skenario
+
+U -> UI: Pilih skenario
+UI -> SIM: getTasks(scenarioId)
+SIM -> DB: query task
+DB --> SIM: daftar task
+SIM --> UI: daftar task
+UI --> U: Tampilkan task
+
+== Kirim jawaban ==
+U -> UI: Isi jawaban lalu klik "Kirim"
+UI -> SIM: submitAnswers(userId, scenarioId, answers)
+
+alt Ada jawaban kosong
+  SIM --> UI: error validasi
+  UI --> U: "Semua task wajib diisi"
+else Semua jawaban terisi
+  SIM -> SIM: evaluate_simulation(correct, total)
+  SIM -> FP: getFeedback(status)
+  FP -> DB: ambil teks feedback
+  DB --> FP: teks feedback
+  FP --> SIM: feedback
+  SIM -> FP: saveResult(userId, scenarioId, score)
+  FP -> DB: simpan hasil
+  DB --> FP: OK
+  FP --> SIM: tersimpan
+  SIM --> UI: skor + status + feedback
+  UI --> U: Tampilkan hasil dan feedback
+
+  opt Status "Perlu Latihan Lagi"
+    UI --> U: Sarankan ulang materi & coba lagi
+    U -> UI: Klik "Ulangi Simulasi"
+    UI -> SIM: getTasks(scenarioId)
+    SIM --> UI: daftar task
+    UI --> U: Tampilkan task dari awal
+  end
+end
+@enduml

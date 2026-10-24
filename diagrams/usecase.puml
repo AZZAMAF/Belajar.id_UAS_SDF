@@ -9,71 +9,77 @@ actor "Admin CareerUp" as AD
 rectangle "CareerUp" {
 
   package "Auth & Profile" {
-    usecase "Register" as UC1
-    usecase "Login" as UC2
+    usecase "Register" as Register
+    usecase "Login" as Login
+    usecase "Set Target Job" as SetTarget
   }
 
   package "Job Explorer" {
-    usecase "Browse Jobs" as UC3
-    usecase "View Required Skills" as UC4
-    usecase "Set Target Job" as UC5
+    usecase "Browse Jobs" as BrowseJobs
+    usecase "View Required Skills" as ViewSkills
+    usecase "View Learning Roadmap" as ViewRoadmap
   }
 
   package "Learning" {
-    usecase "Learn Skill Material" as UC6
-    usecase "Do Interactive Practice" as UC7
+    usecase "Learn Skill Material" as LearnMaterial
+    usecase "Do Interactive Practice" as DoPractice
   }
 
   package "Simulation" {
-    usecase "Do Job Simulation" as UC8
-    usecase "Choose Simulation Scenario" as UC9
-    usecase "Submit Task Answers" as UC10
+    usecase "Do Job Simulation" as DoSim
+    usecase "Choose Simulation Scenario" as ChooseScenario
+    usecase "Submit Task Answers" as SubmitAnswers
   }
 
   package "Feedback & Progress" {
-    usecase "Generate Feedback" as UC11
-    usecase "View Feedback" as UC12
-    usecase "Retry Simulation" as UC13
-    usecase "View Progress" as UC14
+    usecase "Generate Feedback" as GenFeedback
+    usecase "View Feedback" as ViewFeedback
+    usecase "Retry Simulation" as Retry
+    usecase "View Progress" as ViewProgress
   }
 
   package "Content Management" {
-    usecase "Manage Jobs & Skills" as UC15
-    usecase "Manage Learning Materials" as UC16
-    usecase "Manage Simulation Tasks" as UC17
-    usecase "Manage Feedback Rules" as UC18
+    usecase "Manage Jobs & Skills" as MgJobs
+    usecase "Manage Learning Materials" as MgMaterials
+    usecase "Manage Simulation Tasks" as MgTasks
+    usecase "Manage Feedback Rules" as MgRules
   }
 }
 
 ' --- Job Seeker ---
-JS --> UC1
-JS --> UC2
-JS --> UC3
-JS --> UC4
-JS --> UC5
-JS --> UC6
-JS --> UC7
-JS --> UC8
-JS --> UC12
-JS --> UC14
+JS --> Register
+JS --> Login
+JS --> SetTarget
+JS --> BrowseJobs
+JS --> ViewSkills
+JS --> ViewRoadmap
+JS --> LearnMaterial
+JS --> DoPractice
+JS --> DoSim
+JS --> ViewFeedback
+JS --> Retry
+JS --> ViewProgress
 
 ' --- Admin ---
-AD --> UC2
-AD --> UC15
-AD --> UC16
-AD --> UC17
-AD --> UC18
+AD --> Login
+AD --> MgJobs
+AD --> MgMaterials
+AD --> MgTasks
+AD --> MgRules
 
 ' --- Include: selalu terjadi ---
-UC8 ..> UC9 : <<include>>
-UC8 ..> UC10 : <<include>>
-UC10 ..> UC11 : <<include>>
+DoSim ..> ChooseScenario : <<include>>
+DoSim ..> SubmitAnswers : <<include>>
+SubmitAnswers ..> GenFeedback : <<include>>
 
 ' --- Extend: kadang terjadi ---
-UC13 ..> UC12 : <<extend>>
+Retry ..> ViewFeedback : <<extend>>
 
-note right of UC13
-  Hanya muncul jika status
-  "Perlu Latihan Lagi"
+note right of Retry
+  Extension point: hanya muncul
+  jika status "Perlu Latihan Lagi"
 end note
+
+note "Semua use case selain Register dan Login\nmensyaratkan pengguna sudah login." as NLogin
+NLogin .. Login
 @enduml
